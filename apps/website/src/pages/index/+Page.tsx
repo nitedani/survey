@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Send, Edit2, Trash2, Plus, MessageSquare, Check, X } from 'lucide-react'
+import { Check, Edit2, MessageSquare, Plus, Send, Trash2, X } from 'lucide-react'
+import { useState } from 'react'
 
 const EditableOption = ({ option, index, onEdit, onDelete }: any) => {
   const [isEditing, setIsEditing] = useState(false)

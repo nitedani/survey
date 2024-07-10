@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, Edit2, Trash2, Plus, MessageSquare, Check, X, ArrowLeft, ArrowRight, Close } from 'lucide-react'
+import { Send, Edit2, Trash2, Plus, MessageSquare, Check, X, ArrowLeft, ArrowRight } from 'lucide-react'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
@@ -224,12 +224,11 @@ const EditableAISurveyCreator = () => {
     <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen relative">
       <button
         onClick={() => {
-            
           // always go to an existing nearest page
           if (currentPage > 0) {
             setCurrentPage(currentPage - 1)
           }
-          
+
           setPages(pages.filter((_, index) => index !== currentPage))
         }}
         disabled={pages.length <= 1 || isGenerating}

@@ -3,7 +3,7 @@ export { Link }
 import { LinkProps, Link as OriginalLink, forwardRef } from '@nextui-org/react'
 import { navigate } from 'vike/client/router'
 
-// avoids server navigation/page refresh
+// the original @nextui-org/react Link breaks client-side navigation
 const Link = forwardRef(({ children, ...props }: LinkProps, ref) => {
   const onClickHandler =
     'href' in props && !import.meta.env.SSR

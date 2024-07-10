@@ -8,18 +8,17 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 24678:24678
     environment:
       - ROOT_URL=${ROOT_URL}
     volumes:
-      - ../configs/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
-      - ../configs/caddy/tls:/tls:ro
+      - ${CONFIGS_PATH}/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
+      - ${CONFIGS_PATH}/caddy/tls:/tls:ro
     logging:
       options:
         max-size: 50m
 
   website:
-    container_name: website
+    container_name: website_${VERSION}
     image: website:${VERSION}
     environment:
       - PORT=80
@@ -29,7 +28,7 @@ services:
         max-size: 50m
 
   backend:
-    container_name: backend
+    container_name: backend_${VERSION}
     image: backend:${VERSION}
     command:
       - sh
@@ -67,8 +66,8 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_MULTIPLE_DATABASES: app_backend,app_backend_user,app_backend_pass;
     volumes:
-      - ../DB_DATA/:/var/lib/postgresql/data/
-      - ../configs/pgsql/docker_pg_init.sh:/docker-entrypoint-initdb.d/docker_pg_init.sh
+      - /home/${USER_FOLDER}/DB_DATA_PROD/:/var/lib/postgresql/data/
+      - ${CONFIGS_PATH}/pgsql/docker_pg_init.sh:/docker-entrypoint-initdb.d/docker_pg_init.sh
     healthcheck:
       test: pg_isready -U app_backend_user -d app_backend
       interval: 5s
@@ -82,8 +81,8 @@ services:
     container_name: dbeaver
     image: dbeaver/cloudbeaver
     volumes:
-      - ../configs/dbeaver/workspace:/opt/cloudbeaver/workspace
-      - ../configs/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
+      - /home/${USER_FOLDER}/.dbeaver_workspace:/opt/cloudbeaver/workspace
+      - ${CONFIGS_PATH}/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
     depends_on:
       postgres:
         condition: service_healthy

@@ -100,8 +100,8 @@ services:
     container_name: dbeaver
     image: dbeaver/cloudbeaver
     volumes:
-      - ../configs/dbeaver/workspace:/opt/cloudbeaver/workspace
-      - ../configs/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
+      - ./.dbeaver-workspace:/opt/cloudbeaver/workspace
+      - ./configs/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
     depends_on:
       postgres:
         condition: service_healthy

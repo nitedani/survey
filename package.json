@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "turbo run build --concurrency=1"
+    "build": "turbo run build"
   },
   "devDependencies": {
     "prettier": "^3.0.3",
