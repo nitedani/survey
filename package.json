@@ -1,0 +1,20 @@
+{
+  "name": "__root__",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build --concurrency=1"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.13"
+  },
+  "packageManager": "pnpm@9.5.0",
+  "engines": {},
+  "pnpm": {
+    "patchedDependencies": {
+      "vike@0.4.179": "patches/vike@0.4.179.patch"
+    }
+  }
+}

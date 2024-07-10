@@ -1,0 +1,12 @@
+{$ROOT_URL} {
+	handle_path /api/* {
+		reverse_proxy http://backend:80
+	}
+	handle /dbeaver/* {
+		reverse_proxy http://dbeaver:8978
+	}
+	handle /dbeaver {
+		reverse_proxy http://dbeaver:8978
+	}
+    reverse_proxy http://website:80
+}

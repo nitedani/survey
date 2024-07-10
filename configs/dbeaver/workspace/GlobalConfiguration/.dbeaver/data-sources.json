@@ -1,0 +1,40 @@
+{
+	"folders": {},
+	"connections": {
+		"postgres-jdbc-1909ea1c502-51ea2ffae91a96e7": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "PostgreSQL@postgres",
+			"save-password": true,
+			"configuration": {
+				"host": "postgres",
+				"port": "5432",
+				"database": "app_backend",
+				"url": "jdbc:postgresql://postgres:5432/app_backend",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native",
+				"bootstrap": {
+					"autocommit": true
+				}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

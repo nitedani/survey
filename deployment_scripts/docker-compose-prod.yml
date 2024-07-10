@@ -1,0 +1,92 @@
+version: '3.9'
+name: my_project
+
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    ports:
+      - 80:80
+      - 443:443
+      - 24678:24678
+    environment:
+      - ROOT_URL=${ROOT_URL}
+    volumes:
+      - ../configs/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
+      - ../configs/caddy/tls:/tls:ro
+    logging:
+      options:
+        max-size: 50m
+
+  website:
+    container_name: website
+    image: website:${VERSION}
+    environment:
+      - PORT=80
+      - INTERNAL_API_URL=http://backend:80
+    logging:
+      options:
+        max-size: 50m
+
+  backend:
+    container_name: backend
+    image: backend:${VERSION}
+    command:
+      - sh
+      - -cx
+      - |
+        if [[ "$MIGRATE" == "true" ]]; then
+            npm run migrate:prod
+            SEED=true npm run start
+        elif [[ "$MIGRATE" == "__unsafe__hard__reset__" ]]; then
+            npm run migrate:prod:reset
+            SEED=true npm run start
+        else
+            npm run start
+        fi
+    environment:
+      - PORT=80
+      - DATABASE_URL=postgres://app_backend_user:app_backend_pass@postgres:5432/app_backend
+      - AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}
+      - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
+      - AUTH_SECRET=${AUTH_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'busybox', 'wget', '--spider', 'http://localhost/docs-json']
+      interval: 5s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  postgres:
+    container_name: postgres
+    image: postgres:13.2
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_MULTIPLE_DATABASES: app_backend,app_backend_user,app_backend_pass;
+    volumes:
+      - ../DB_DATA/:/var/lib/postgresql/data/
+      - ../configs/pgsql/docker_pg_init.sh:/docker-entrypoint-initdb.d/docker_pg_init.sh
+    healthcheck:
+      test: pg_isready -U app_backend_user -d app_backend
+      interval: 5s
+      timeout: 5s
+      retries: 100
+    logging:
+      options:
+        max-size: 50m
+
+  dbeaver:
+    container_name: dbeaver
+    image: dbeaver/cloudbeaver
+    volumes:
+      - ../configs/dbeaver/workspace:/opt/cloudbeaver/workspace
+      - ../configs/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
+    depends_on:
+      postgres:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: 50m

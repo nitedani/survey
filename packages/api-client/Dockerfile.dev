@@ -1,0 +1,10 @@
+FROM node:20.13.0-alpine3.18
+WORKDIR /src
+ENV NODE_PATH=/usr/local/lib/node_modules
+
+RUN wget -O /etc/apk/keys/adoptium.rsa.pub https://packages.adoptium.net/artifactory/api/security/keypair/public/repositories/apk && \
+    echo 'https://packages.adoptium.net/artifactory/apk/alpine/main' >> /etc/apk/repositories && \
+    apk --no-cache add temurin-21-jre
+
+RUN npm i -g @openapitools/openapi-generator-cli chokidar wait-on
+CMD [ "node", "/src/packages/api-client/watch.js" ]

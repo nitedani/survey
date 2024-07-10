@@ -1,0 +1,15 @@
+.gitignore
+.npmignore
+README.md
+package.json
+src/apis/UsersApi.ts
+src/apis/index.ts
+src/index.ts
+src/models/GetV1UsersMe200Response.ts
+src/models/GetV1UsersMe200ResponseData.ts
+src/models/GetV1UsersMe400Response.ts
+src/models/GetV1UsersMe400ResponseError.ts
+src/models/index.ts
+src/runtime.ts
+tsconfig.esm.json
+tsconfig.json
