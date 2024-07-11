@@ -14,7 +14,8 @@ export default {
   plugins: [
     viteNode({
       entry: './src/index.ts',
-      standalone: true
+      standalone: true,
+      external: ['swagger-ui-express', 'swagger-ui-dist']
     })
   ]
 } satisfies UserConfig

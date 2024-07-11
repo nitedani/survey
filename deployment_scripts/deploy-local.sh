@@ -1,5 +1,7 @@
+USER=$(whoami)
+PROJECT_DIR="/home/$USER/project"
+####################
 source .env
-export USER_FOLDER=$(whoami)
 parent_path=$(
     cd "$(dirname "${BASH_SOURCE[0]}")"
     pwd -P
@@ -15,7 +17,6 @@ elif [ "$REPLY" = "no" ]; then
     MIGRATE=false
 elif [ "$REPLY" = "__unsafe__hard__reset__" ]; then
     MIGRATE="__unsafe__hard__reset__"
-    sudo rm -rf /home/$USER_FOLDER/DB_DATA_PROD
 else
     exit 1
 fi
@@ -26,11 +27,16 @@ if [ "$REPLY" = "yes" ]; then
     export MIGRATE=$MIGRATE
     export VERSION=$VERSION
     export ROOT_URL=$ROOT_URL
-    export CONFIGS_PATH=$parent_path/../configs
+    export PROJECT_DIR=$PROJECT_DIR
     builder_path=$parent_path/docker-compose-builder.yml
     prod_path=$parent_path/docker-compose-prod.yml
     docker container prune -f
     docker compose -f $builder_path --profile build_dist_folders up --remove-orphans
     docker compose -f $builder_path --profile build_docker_images build --parallel
+
+    mkdir -p $PROJECT_DIR
+    cp $prod_path $PROJECT_DIR
+    cp -r configs $PROJECT_DIR
+
     docker compose -f $prod_path up -d --build --force-recreate --remove-orphans
 fi

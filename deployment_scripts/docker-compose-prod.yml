@@ -1,4 +1,3 @@
-version: '3.9'
 name: my_project
 
 services:
@@ -11,8 +10,8 @@ services:
     environment:
       - ROOT_URL=${ROOT_URL}
     volumes:
-      - ${CONFIGS_PATH}/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
-      - ${CONFIGS_PATH}/caddy/tls:/tls:ro
+      - ${PROJECT_DIR}/configs/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
+      - ${PROJECT_DIR}/configs/caddy/tls:/tls:ro
     logging:
       options:
         max-size: 50m
@@ -66,8 +65,8 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_MULTIPLE_DATABASES: app_backend,app_backend_user,app_backend_pass;
     volumes:
-      - /home/${USER_FOLDER}/DB_DATA_PROD/:/var/lib/postgresql/data/
-      - ${CONFIGS_PATH}/pgsql/docker_pg_init.sh:/docker-entrypoint-initdb.d/docker_pg_init.sh
+      - ${PROJECT_DIR}/DB_DATA_PROD/:/var/lib/postgresql/data/
+      - ${PROJECT_DIR}/configs/pgsql/docker_pg_init.sh:/docker-entrypoint-initdb.d/docker_pg_init.sh
     healthcheck:
       test: pg_isready -U app_backend_user -d app_backend
       interval: 5s
@@ -81,8 +80,8 @@ services:
     container_name: dbeaver
     image: dbeaver/cloudbeaver
     volumes:
-      - /home/${USER_FOLDER}/.dbeaver_workspace:/opt/cloudbeaver/workspace
-      - ${CONFIGS_PATH}/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
+      - ${PROJECT_DIR}/.dbeaver_workspace:/opt/cloudbeaver/workspace
+      - ${PROJECT_DIR}/configs/dbeaver/cloudbeaver.conf:/opt/cloudbeaver/conf/cloudbeaver.conf
     depends_on:
       postgres:
         condition: service_healthy

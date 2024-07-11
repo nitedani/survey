@@ -68,6 +68,9 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.9
+      swagger-ui-dist:
+        specifier: ^5.17.14
+        version: 5.17.14
       typescript:
         specifier: ^5.2.2
         version: 5.5.3
