@@ -14,7 +14,18 @@ services:
       ]
     volumes:
       - ./:/src:rw
-
+  # nginx:
+  #   image: nginx
+  #   restart: 'no'
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 24678:24678
+  #   environment:
+  #     - ROOT_URL=${ROOT_URL}
+  #   volumes:
+  #     - ./configs/nginx/dev.conf:/etc/nginx/nginx.conf
+  #     - ./configs/tls:/tls:ro
   caddy:
     image: caddy
     restart: 'no'
@@ -26,7 +37,7 @@ services:
       - ROOT_URL=${ROOT_URL}
     volumes:
       - ./configs/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./configs/caddy/tls:/tls:ro
+      - ./configs/tls:/tls:ro
 
   website:
     restart: 'no'
