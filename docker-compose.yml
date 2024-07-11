@@ -30,8 +30,8 @@ services:
     image: caddy
     restart: 'no'
     ports:
-      - 80:80
-      - 443:443
+      - 3000:3000
+      # - 443:443
       - 24678:24678
     environment:
       - ROOT_URL=${ROOT_URL}
