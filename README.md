@@ -42,7 +42,7 @@ The https certificate is automatically created.<br>
 
 
 ###  Remote deploy:  
-You need to configure `~/.ssh/config`
+You need to configure your local `~/.ssh/config` and ensure docker is running on the local and remote machine.
 
 1. git clone https://github.com/nitedani/survey
 2. cd survey
