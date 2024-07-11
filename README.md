@@ -39,7 +39,6 @@ ROOT_URL="https://domain.com"
 
 The service will listen on `443`, `80` ports, automatically redirecting to https.<br>
 The https certificate is automatically created.<br>
-The database is stored in the `DB_DATA` folder.
 
 
 ###  Remote deploy:  
@@ -62,4 +61,3 @@ ROOT_URL="https://domain.com"
 
 The service will listen on `443`, `80` ports, automatically redirecting to https.<br>
 The https certificate is automatically created.<br>
-The database is stored in the `DB_DATA` folder.
