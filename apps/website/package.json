@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node dist/server/index.mjs"
   },
   "devDependencies": {
-    "@nitedani/vite-plugin-node": "2.0.0-alpha.2",
+    "@nitedani/vite-plugin-node": "2.0.0-alpha.5",
     "vite": "v6.0.0-alpha.18",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",

@@ -54,8 +54,8 @@ importers:
         version: 3.23.8
     devDependencies:
       '@nitedani/vite-plugin-node':
-        specifier: 2.0.0-alpha.2
-        version: 2.0.0-alpha.2(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))
+        specifier: 2.0.0-alpha.5
+        version: 2.0.0-alpha.5(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))
       '@types/http-errors':
         specifier: ^2.0.4
         version: 2.0.4
@@ -93,8 +93,8 @@ importers:
         specifier: ^2.2.6
         version: 2.2.6(tailwindcss@3.4.4)
       '@nitedani/vite-plugin-node':
-        specifier: 2.0.0-alpha.2
-        version: 2.0.0-alpha.2(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))
+        specifier: 2.0.0-alpha.5
+        version: 2.0.0-alpha.5(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))
       '@tanstack/react-query':
         specifier: ^5.50.1
         version: 5.50.1(react@18.3.1)
@@ -1155,8 +1155,8 @@ packages:
     resolution: {integrity: sha512-ltIQurbwv7Hk579seW8HGH+ay42+FUEPi0OChmSB5qCrnXFa5Ecd4zxVCbn2JjTHJj4R5M5YW4fYN0SOqlAiUQ==}
     engines: {node: '>=14.0'}
 
-  '@nitedani/vite-plugin-node@2.0.0-alpha.2':
-    resolution: {integrity: sha512-NvXZR6SgB7ZUiD27Fnv1/vOjAPxvp6OelkxHgX6EnGXQmW3VP/iOGeHVgDSZ3QlwqtGLsgm+m23LfLMAS1rIJg==}
+  '@nitedani/vite-plugin-node@2.0.0-alpha.5':
+    resolution: {integrity: sha512-zAZdReCealzyoLNjiQ0wcT2u55gPoaUMsOdctJG4uN5jAxWj4EheZSn8+H6+BVnZdKid3W9lDAIzyaTiYV+mfA==}
     peerDependencies:
       vite: '*'
 
@@ -4652,7 +4652,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nitedani/vite-plugin-node@2.0.0-alpha.2(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))':
+  '@nitedani/vite-plugin-node@2.0.0-alpha.5(esbuild@0.21.5)(vite@6.0.0-alpha.18(@types/node@20.14.10))':
     dependencies:
       '@brillout/picocolors': 1.0.13
       '@nitedani/shrink-ray-current': 4.2.0
