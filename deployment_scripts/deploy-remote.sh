@@ -1,7 +1,14 @@
+####################
+####################
+####################
+######Settings######
 REMOTE_USER="root"
 PROJECT_DIR="/project"
 REMOTE_MACHINE_ADDR="46.101.156.159"
 PUBLIC_DOMAIN="something-something.com"
+####################
+####################
+####################
 ####################
 source .env
 parent_path=$(

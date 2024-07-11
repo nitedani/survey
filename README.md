@@ -43,4 +43,23 @@ The database is stored in the `DB_DATA` folder.
 
 
 ###  Remote deploy:  
-    TODO
+You need to configure `~/.ssh/config`
+
+1. git clone https://github.com/nitedani/survey
+2. cd survey
+3. change settings in `deployment_scripts/deploy-remote.sh`
+4. create `deployment_scripts/.env`
+```
+# deployment_scripts/.env
+
+AUTH_SECRET=""
+AUTH_GOOGLE_ID=""
+AUTH_GOOGLE_SECRET=""
+ROOT_URL="https://domain.com"
+```
+
+5. `./deployment_scripts/deploy-remote.sh`
+
+The service will listen on `443`, `80` ports, automatically redirecting to https.<br>
+The https certificate is automatically created.<br>
+The database is stored in the `DB_DATA` folder.
