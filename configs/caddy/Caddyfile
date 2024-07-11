@@ -1,4 +1,4 @@
-{$ROOT_URL}:3000 {
+http://localhost:3000 {
 	handle_path /api/* {
 		reverse_proxy http://backend:80
 	}
