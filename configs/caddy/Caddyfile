@@ -10,7 +10,3 @@
 	}
     reverse_proxy http://website:80
 }
-
-:24678 {
-	reverse_proxy http://website:24678
-}
