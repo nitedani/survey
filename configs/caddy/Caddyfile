@@ -1,4 +1,4 @@
-http://localhost:3000 {
+{$ROOT_URL}:{$PORT} {
 	handle_path /api/* {
 		reverse_proxy http://backend:80
 	}
@@ -11,6 +11,6 @@ http://localhost:3000 {
     reverse_proxy http://website:80
 }
 
-{$ROOT_URL}:24678 {
+:24678 {
 	reverse_proxy http://website:24678
 }

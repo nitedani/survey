@@ -14,24 +14,8 @@ services:
       ]
     volumes:
       - ./:/src:rw
-  nginx:
-    image: nginx
-    restart: 'no'
-    ports:
-      - 3000:3000
-      # - 443:443
-      - 24678:24678
-    environment:
-      - ROOT_URL=${ROOT_URL}
-    volumes:
-      - ./configs/nginx/dev.conf:/etc/nginx/nginx.conf
-      - ./configs/tls:/tls:ro
-    depends_on:
-      backend:
-        condition: service_healthy
-
-  # caddy:
-  #   image: caddy
+  # nginx:
+  #   image: nginx
   #   restart: 'no'
   #   ports:
   #     - 3000:3000
@@ -40,8 +24,25 @@ services:
   #   environment:
   #     - ROOT_URL=${ROOT_URL}
   #   volumes:
-  #     - ./configs/caddy/Caddyfile:/etc/caddy/Caddyfile
+  #     - ./configs/nginx/dev.conf:/etc/nginx/nginx.conf
   #     - ./configs/tls:/tls:ro
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
+
+  caddy:
+    image: caddy
+    restart: 'no'
+    ports:
+      - ${PORT}:${PORT}
+      # - 443:443
+      - 24678:24678
+    environment:
+      - ROOT_URL=${ROOT_URL}
+      - PORT=${PORT}
+    volumes:
+      - ./configs/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./configs/tls:/tls:ro
 
   website:
     restart: 'no'
