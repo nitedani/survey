@@ -1,3 +1,0 @@
-export { useAuth }
-
-function useAuth() {}

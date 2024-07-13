@@ -5,3 +5,7 @@ dist
 DB_DATA*
 .env
 .dbeaver-workspace
+SUPABASE_DATA/storage
+SUPABASE_DATA/logs
+SUPABASE_DATA/db/data
+

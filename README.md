@@ -12,7 +12,7 @@ AUTH_GOOGLE_ID=""
 AUTH_GOOGLE_SECRET=""
 ROOT_URL="http://localhost"
 ```
-4. `docker compose up`
+4. `docker compose -f docker-compose.yml -f docker-compose-supabase.yml -f docker-compose-supabase-s3.yml up`
 
 The database is stored in a docker volume.<br>
 To reset the database `docker compose down -v`

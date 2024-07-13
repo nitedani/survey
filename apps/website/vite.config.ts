@@ -12,15 +12,6 @@ export default {
       '#root': join(__dirname, 'src')
     }
   },
-  buildSteps: [
-    { name: 'client' },
-    {
-      name: 'server',
-      config: {
-        build: { ssr: true }
-      }
-    }
-  ],
   server: {
     port: process.env.PORT && Number(process.env.PORT) || 3000,
     host: '0.0.0.0',
@@ -31,7 +22,7 @@ export default {
   plugins: [
     react(),
     telefunc(),
-    vike({ disableAutoFullBuild: true }),
+    vike(),
     vavite({
       serverEntry: './src/server/index.ts',
       serveClientAssetsInDev: true

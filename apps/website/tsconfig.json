@@ -12,7 +12,7 @@
       "ESNext"
     ],
     "types": [
-      "vite/client"
+      "vite/client",
     ],
     "jsx": "react-jsx",
     "skipLibCheck": true,

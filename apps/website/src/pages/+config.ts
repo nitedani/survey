@@ -6,7 +6,7 @@ import vikeReactZustand from 'vike-react-zustand/config'
 export default {
   title: 'My App',
   extends: [vikeReact, vikeReactQuery, vikeReactZustand],
-  passToClient: ['csrfToken'],
+  passToClient: ['user', 'session'],
   //TODO: remove this
   reactStrictMode: false
 } satisfies Config

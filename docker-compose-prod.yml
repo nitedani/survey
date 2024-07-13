@@ -1,20 +1,6 @@
-version: '3.9'
 name: my_project
 
 services:
-  npm_installer:
-    restart: 'no'
-    image: node:20.13.0-alpine3.18
-    working_dir: /src
-    command:
-      [
-        'sh',
-        '-cx',
-        "corepack enable && corepack pnpm i && chmod -R 777 .pnpm-store && find . -name 'node_modules' -type d -prune -exec chmod -R 777 '{}' +"
-      ]
-    volumes:
-      - ./:/src:rw
-
   caddy:
     image: caddy
     restart: 'no'
@@ -28,13 +14,12 @@ services:
       - ./configs/tls:/tls:ro
 
   website:
-    restart: 'no'
+    container_name: website
     image: node:20.13.0-alpine3.18
     working_dir: /src
-    command: ['sh', '-cx', 'cd /src/apps/website && npm run dev']
+    command: ['sh', '-cx', 'cd /src/apps/website && npm run start']
     environment:
       - PORT=80
-      - INTERNAL_API_URL=http://backend:80
       - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
       - SUPABASE_INTERNAL_API_URL=http://kong:8000
       - PUBLIC_ENV__SUPABASE_ANON_ROLE_KEY=${ANON_KEY}
@@ -42,8 +27,24 @@ services:
     volumes:
       - ./:/src:rw
     depends_on:
-      npm_installer:
+      js_builder:
         condition: service_completed_successfully
+    logging:
+      options:
+        max-size: 50m
 
-volumes:
-  pg_db_data:
+  js_builder:
+    restart: 'no'
+    image: node:20.13.0-alpine3.18
+    working_dir: /src
+    environment:
+      - PUBLIC_ENV__SUPABASE_ANON_ROLE_KEY=${ANON_KEY}
+      - PUBLIC_ENV__SUPABASE_API_URL=${API_EXTERNAL_URL}
+    command:
+      [
+        'sh',
+        '-cx',
+        "corepack enable && pnpm i && pnpm build && chmod -R 777 .pnpm-store && find . -name 'node_modules' -type d -prune -exec chmod -R 777 '{}' +"
+      ]
+    volumes:
+      - ./:/src:rw

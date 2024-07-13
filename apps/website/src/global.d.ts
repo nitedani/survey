@@ -1,14 +1,22 @@
-export {}
+import type { Request, Response } from 'express'
+import type { Session, SupabaseClient, User } from '@supabase/supabase-js'
 
-declare namespace Express {
-  export interface Request {
-     session: any
-  }
-}
 declare global {
+  declare namespace Express {
+    export interface Request {
+      supabase: SupabaseClient
+      user?: User
+      session?: Session
+    }
+  }
+
   namespace Vike {
     interface PageContext {
-      csrfToken: string
+      req: Request
+      res: Response
+      supabase: SupabaseClient
+      user?: User
+      session?: Session
     }
   }
 }

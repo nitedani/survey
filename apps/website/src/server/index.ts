@@ -3,27 +3,42 @@ import { renderPage } from 'vike/server'
 import { requestContextMiddleware } from './cls'
 import httpDevServer from 'vavite/http-dev-server'
 import { telefunc } from 'telefunc'
-
+import { supabaseMiddleware } from './supabase'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
+import shrinkRay from '@nitedani/shrink-ray-current'
 startServer()
 
 async function startServer() {
   const app = express()
   app.use(requestContextMiddleware)
-  if (import.meta.env.PROD) {
-    app.use(express.static('client'))
+  if (process.env.NODE_ENV === 'production') {
+    const dirname_ = dirname(fileURLToPath(import.meta.url))
+    const clientPath = join(dirname_, '..', 'client')
+    app.use(shrinkRay())
+    app.use(express.static(clientPath))
   }
+
   app.use(express.text())
+  app.use('*', supabaseMiddleware)
   app.all('/_telefunc', async (req, res) => {
-      const context = {}
-      const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body, context })
-      const { body, statusCode, contentType } = httpResponse
-      res.status(statusCode).type(contentType).send(body)
+    const context = {}
+    const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body, context })
+    const { body, statusCode, contentType } = httpResponse
+    res.status(statusCode).type(contentType).send(body)
   })
+
   app.get('*', async (req, res, next) => {
     const pageContextInit = {
       urlOriginal: req.originalUrl,
-      headersOriginal: req.headers
+      headersOriginal: req.headers,
+      req,
+      // set by supabaseMiddleware on req
+      user: req.user,
+      session: req.session,
+      supabase: req.supabase
     }
+
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
     if (!httpResponse) {

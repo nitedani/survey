@@ -1,6 +1,0 @@
-FROM node:20.13.0-alpine3.18
-ENV NODE_ENV=production
-RUN corepack enable && corepack pnpm install prisma
-COPY ./apps/backend/prisma ./prisma
-COPY ./apps/backend/package.json ./package.json
-COPY ./apps/backend/dist ./dist
