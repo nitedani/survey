@@ -4,6 +4,7 @@ import { join } from 'path'
 import vike from 'vike/plugin'
 import type { UserConfig } from 'vite'
 import { vavite } from 'vavite'
+import { telefunc } from 'telefunc/vite'
 
 export default {
   resolve: {
@@ -29,6 +30,7 @@ export default {
   },
   plugins: [
     react(),
+    telefunc(),
     vike({ disableAutoFullBuild: true }),
     vavite({
       serverEntry: './src/server/index.ts',

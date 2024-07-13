@@ -21,42 +21,9 @@ services:
     image: website:${VERSION}
     environment:
       - PORT=80
-      - INTERNAL_API_URL=http://backend:80
     logging:
       options:
         max-size: 50m
-
-  backend:
-    container_name: backend_${VERSION}
-    image: backend:${VERSION}
-    command:
-      - sh
-      - -cx
-      - |
-        if [[ "$MIGRATE" == "true" ]]; then
-            npm run migrate:prod
-            SEED=true npm run start
-        elif [[ "$MIGRATE" == "__unsafe__hard__reset__" ]]; then
-            npm run migrate:prod:reset
-            SEED=true npm run start
-        else
-            npm run start
-        fi
-    environment:
-      - PORT=80
-      - DATABASE_URL=postgres://app_backend_user:app_backend_pass@postgres:5432/app_backend
-      - AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}
-      - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
-      - AUTH_SECRET=${AUTH_SECRET}
-    depends_on:
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD', 'busybox', 'wget', '--spider', 'http://localhost/docs-json']
-      interval: 5s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
 
   postgres:
     container_name: postgres

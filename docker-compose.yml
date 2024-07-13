@@ -14,6 +14,7 @@ services:
       ]
     volumes:
       - ./:/src:rw
+
   # nginx:
   #   image: nginx
   #   restart: 'no'
@@ -57,45 +58,6 @@ services:
     depends_on:
       npm_installer:
         condition: service_completed_successfully
-
-  backend:
-    restart: 'no'
-    image: node:20.13.0-alpine3.18
-    working_dir: /src
-    command: ['sh', '-cx', 'cd /src/apps/backend && npm run dev']
-    environment:
-      - PORT=80
-      - DATABASE_URL=postgres://app_backend_user:app_backend_pass@postgres:5432/app_backend
-      - AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}
-      - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
-      - AUTH_SECRET=${AUTH_SECRET}
-    volumes:
-      - ./:/src:rw
-    depends_on:
-      npm_installer:
-        condition: service_completed_successfully
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD', 'busybox', 'wget', '--spider', 'http://localhost/docs-json']
-      interval: 5s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-
-  api-client-generator:
-    restart: 'no'
-    build:
-      context: ./packages/api-client
-      dockerfile: Dockerfile.dev
-    working_dir: /src
-    volumes:
-      - ./:/src:rw
-    depends_on:
-      npm_installer:
-        condition: service_completed_successfully
-      backend:
-        condition: service_healthy
 
   postgres:
     restart: 'no'

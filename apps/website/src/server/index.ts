@@ -2,6 +2,7 @@ import express from 'express'
 import { renderPage } from 'vike/server'
 import { requestContextMiddleware } from './cls'
 import httpDevServer from 'vavite/http-dev-server'
+import { telefunc } from 'telefunc'
 
 startServer()
 
@@ -11,7 +12,13 @@ async function startServer() {
   if (import.meta.env.PROD) {
     app.use(express.static('client'))
   }
-
+  app.use(express.text())
+  app.all('/_telefunc', async (req, res) => {
+      const context = {}
+      const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body, context })
+      const { body, statusCode, contentType } = httpResponse
+      res.status(statusCode).type(contentType).send(body)
+  })
   app.get('*', async (req, res, next) => {
     const pageContextInit = {
       urlOriginal: req.originalUrl,

@@ -14,7 +14,7 @@ import {
 import { Link } from './Link'
 
 export function MyNavbar() {
-  const { me, signOut } = useAuth()
+  // const { me, signOut } = useAuth()
 
   return (
     <Navbar>
@@ -40,7 +40,7 @@ export function MyNavbar() {
         </NavbarItem> */}
       </NavbarContent>
       <NavbarContent justify="end">
-        {!me && (
+        {/* {!me && (
           <>
             <NavbarItem className="hidden lg:flex">
               <Link href="/auth/login">Log in</Link>
@@ -65,7 +65,7 @@ export function MyNavbar() {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        )}
+        )} */}
       </NavbarContent>
     </Navbar>
   )

@@ -7,13 +7,6 @@ services:
       context: ../.
       dockerfile: ./deployment_scripts/Dockerfile.website
 
-  backend:
-    profiles:
-      - build_docker_images
-    image: backend:${VERSION}
-    build:
-      context: ../.
-      dockerfile: ./deployment_scripts/Dockerfile.backend
 
   js_builder:
     profiles:
