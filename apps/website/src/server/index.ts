@@ -45,7 +45,7 @@ async function startServer() {
       return next()
     } else {
       const { statusCode, headers, earlyHints } = httpResponse
-      if (res.writeEarlyHints) res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
+      // if (res.writeEarlyHints) res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
       headers.forEach(([name, value]) => res.setHeader(name, value))
       res.status(statusCode)
       httpResponse.pipe(res)
