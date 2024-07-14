@@ -1,23 +1,14 @@
 name: my_project
 
 services:
-  caddy:
-    image: caddy
-    restart: 'no'
-    ports:
-      - ${PORT}:${PORT}
-    environment:
-      - ROOT_URL=${ROOT_URL}
-      - PORT=${PORT}
-    volumes:
-      - ./configs/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./configs/tls:/tls:ro
 
   website:
     container_name: website
     image: node:20.13.0-alpine3.18
     working_dir: /src
     command: ['sh', '-cx', 'cd /src/apps/website && npm run start']
+    ports:
+      - ${PORT}:80
     environment:
       - PORT=80
       - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}

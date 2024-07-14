@@ -15,23 +15,29 @@ services:
     volumes:
       - ./:/src:rw
 
-  caddy:
-    image: caddy
-    restart: 'no'
-    ports:
-      - ${PORT}:${PORT}
-    environment:
-      - ROOT_URL=${ROOT_URL}
-      - PORT=${PORT}
-    volumes:
-      - ./configs/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./configs/tls:/tls:ro
+  # nginx:
+  #   image: nginx
+  #   restart: 'no'
+  #   ports:
+  #     - 3000:3000
+  #     # - 443:443
+  #     - 24678:24678
+  #   environment:
+  #     - ROOT_URL=${ROOT_URL}
+  #   volumes:
+  #     - ./configs/nginx/dev.conf:/etc/nginx/nginx.conf
+  #     - ./configs/tls:/tls:ro
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
 
   website:
     restart: 'no'
     image: node:20.13.0-alpine3.18
     working_dir: /src
     command: ['sh', '-cx', 'cd /src/apps/website && npm run dev']
+    ports:
+      - ${PORT}:80
     environment:
       - PORT=80
       - INTERNAL_API_URL=http://backend:80

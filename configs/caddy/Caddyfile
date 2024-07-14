@@ -1,9 +1,3 @@
 {$ROOT_URL}:{$PORT} {
-	handle /dbeaver/* {
-		reverse_proxy http://dbeaver:8978
-	}
-	handle /dbeaver {
-		reverse_proxy http://dbeaver:8978
-	}
     reverse_proxy http://website:80
 }
