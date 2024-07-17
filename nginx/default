@@ -1,0 +1,27 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    # Default response for unmatched server names
+    location / {
+        return 444; # No response
+    }
+
+    # Security headers
+    # add_header X-Frame-Options "SAMEORIGIN";
+    # add_header X-Content-Type-Options "nosniff";
+    # add_header X-XSS-Protection "1; mode=block";
+    # add_header Content-Security-Policy "default-src 'self'";
+
+    # Logging for the default server block
+    access_log /var/log/nginx/default_access.log;
+    error_log /var/log/nginx/default_error.log;
+
+    # Deny access to hidden files
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}
