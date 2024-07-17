@@ -40,6 +40,7 @@
     "telefunc": "^0.1.76",
     "@supabase/supabase-js": "^2.44.3",
     "@supabase/ssr": "^0.4.0",
-    "@nitedani/shrink-ray-current": "4.2.0"
+    "@nitedani/shrink-ray-current": "4.2.0",
+    "react-icons": "5.2.1"
   }
 }

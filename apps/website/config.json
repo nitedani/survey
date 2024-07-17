@@ -1,0 +1,12 @@
+{
+  "development": {
+    "supabaseUrl": "https://supabase.surveydash.io/",
+    "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.",
+    "port": 3000
+  },
+  "production": {
+    "supabaseUrl": "https://supabase.surveydash.io/",
+    "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.",
+    "port": 3000
+  }
+}
